@@ -119,15 +119,7 @@ class SimplexTabulado:
         colunas = ["Z"] + [f'X{i+1}' for i in range(self.num_vars)] + \
                   [f'F{i+1}' for i in range(self.num_restricoes)] + \
                   ['Constante']
-        
-        # Marcar coluna do pivô no cabeçalho, se houver
-        if col_pivo is not None:
-            if col_pivo < self.num_vars:
-                colunas[col_pivo + 1] = f'X{col_pivo+1}*'  # +1 por causa da coluna Z
-            else:
-                folga_idx = col_pivo - self.num_vars + 1
-                colunas[self.num_vars + folga_idx] = f'F{folga_idx}*'
-              
+                  
         # Adicionar cabeçalho extra para divisão quando mostrando pivô
         headers = ["Variaveis", "N de linha"] + colunas
         if col_pivo is not None:
@@ -136,16 +128,9 @@ class SimplexTabulado:
         tabela_dados = []
         
         # Adicionar linha Z (função objetivo)
-        row_z_data = []
-        for j in range(self.num_total_vars + 1):
-            valor = self.tabela[-1, j]
-            # Marcar elemento na coluna do pivô
-            if col_pivo is not None and j == col_pivo:
-                row_z_data.append(f"{valor:.2f}*")
-            else:
-                row_z_data.append(f"{valor:.2f}")
-                
-        row_z = ["Z", "1", "1"] + row_z_data
+        row_z = ["Z", "1", "1"] + \
+                [f"{self.tabela[-1, j]:.2f}" for j in range(self.num_vars + self.num_restricoes)] + \
+                [f"{self.tabela[-1, -1]:.2f}"]
         tabela_dados.append(row_z)
         
         # Adicionar linhas das restrições
@@ -157,39 +142,15 @@ class SimplexTabulado:
             else:
                 vb = f'F{vb_idx-self.num_vars+1}'
             
-            # Marcar linha do pivô na coluna de variáveis e número da linha
-            if row_pivo is not None and i == row_pivo:
-                var_base = f"{vb}*"
-                n_linha = f"{i+2}*"
-            else:
-                var_base = vb
-                n_linha = f"{i+2}"
-            
-            # Montar dados da linha, marcando elementos na linha ou coluna do pivô
-            row_data = [var_base, n_linha, "0"]
-            for j in range(self.num_total_vars + 1):
-                valor = self.tabela[i, j]
-                # Marcar elemento na interseção da linha e coluna do pivô
-                if row_pivo is not None and col_pivo is not None and i == row_pivo and j == col_pivo:
-                    row_data.append(f"{valor:.2f}★")  # Estrela para o elemento pivô
-                # Marcar elemento na linha do pivô
-                elif row_pivo is not None and i == row_pivo:
-                    row_data.append(f"{valor:.2f}*")
-                # Marcar elemento na coluna do pivô
-                elif col_pivo is not None and j == col_pivo:
-                    row_data.append(f"{valor:.2f}*")
-                else:
-                    row_data.append(f"{valor:.2f}")
+            row_data = [vb, f"{i+2}", "0"] + \
+                      [f"{self.tabela[i, j]:.2f}" for j in range(self.num_total_vars)] + \
+                      [f"{self.tabela[i, -1]:.2f}"]
                       
             # Adicionar coluna de divisão se estivermos mostrando um pivô
             if col_pivo is not None:
                 if self.tabela[i, col_pivo] > 0:
                     ratio = self.tabela[i, -1] / self.tabela[i, col_pivo]
-                    # Marcar a razão mínima
-                    if i == row_pivo:
-                        row_data.append(f"{ratio:.2f}★")  # Marcar a razão mínima
-                    else:
-                        row_data.append(f"{ratio:.2f}")
+                    row_data.append(f"{ratio:.2f}")
                 else:
                     row_data.append("--")
                     
