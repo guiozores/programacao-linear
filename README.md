@@ -20,7 +20,7 @@ Este projeto implementa o método Simplex Tabulado passo a passo para resolver p
 1. Clone este repositório ou baixe os arquivos manualmente:
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/guiozores/programacao-linear.git
 ```
 
 2. Navegue até o diretório do projeto:
