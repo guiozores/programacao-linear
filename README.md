@@ -4,7 +4,7 @@ Este projeto implementa o método Simplex passo a passo para resolver problemas 
 
 - **Interface de Terminal**: Para execução simples via linha de comando
 - **Interface Web**: Uma interface gráfica interativa usando Streamlit
-- **Métodos de Resolução**: Tabulado (tabular) e Analítico (algébrico)
+- **Métodos de Resolução**: Tabulado (tabular)
 
 ## Requisitos
 
@@ -94,14 +94,7 @@ Isso iniciará o servidor Streamlit e abrirá automaticamente seu navegador padr
    - Use o botão "Mostrar Solução Completa" para executar todas as iterações automaticamente
    - Use o botão "Reiniciar" para começar novamente com o mesmo problema
 
-3. **Solução Analítica Passo a Passo**:
-
-   - Navegue para a aba "Solução Analítica"
-   - Clique em "Mostrar Solução Analítica Completa" para ver todos os passos do método analítico
-   - Cada etapa do processo é detalhada com as manipulações algébricas
-   - Use o botão "Reiniciar Solução Analítica" para começar novamente
-
-4. **Visualização**:
+3. **Visualização**:
    - Na solução tabulada: a tabela do simplex é exibida com formatação apropriada
    - Na solução analítica: cada passo algébrico é mostrado em detalhes
    - Os elementos importantes são destacados para facilitar o acompanhamento
