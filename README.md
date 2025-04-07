@@ -1,9 +1,10 @@
 # Simplex Tabulado - Método Passo a Passo
 
-Este projeto implementa o método Simplex Tabulado passo a passo para resolver problemas de programação linear (PPL). Disponibilizamos duas interfaces:
+Este projeto implementa o método Simplex passo a passo para resolver problemas de programação linear (PPL). Disponibilizamos duas interfaces e dois métodos de resolução:
 
 - **Interface de Terminal**: Para execução simples via linha de comando
 - **Interface Web**: Uma interface gráfica interativa usando Streamlit
+- **Métodos de Resolução**: Tabulado (tabular) e Analítico (algébrico)
 
 ## Requisitos
 
@@ -45,11 +46,14 @@ cd prova
 
 ## Executando a Versão Terminal
 
-A versão terminal permite resolver problemas de programação linear direto pelo terminal, mostrando o passo a passo da resolução:
+A versão terminal permite resolver problemas de programação linear direto pelo terminal, mostrando o passo a passo da resolução.
+
+Para o método tabulado:
 
 ```bash
-python tabuladocore.py
+python tabuladoterminal.py
 ```
+
 
 Ao executar, você terá as opções:
 
@@ -59,8 +63,8 @@ Ao executar, você terá as opções:
 O programa exibirá:
 
 1. A definição do problema completo
-2. As tabelas do simplex em cada iteração
-3. A operação de pivotamento em cada passo
+2. As tabelas do simplex em cada iteração (método tabulado)
+3. As manipulações algébricas em cada passo (método analítico)
 4. A solução final com valores das variáveis de decisão e folga
 
 ## Executando a Versão Web com Streamlit
@@ -83,23 +87,31 @@ Isso iniciará o servidor Streamlit e abrirá automaticamente seu navegador padr
    - Insira os coeficientes das restrições e seus limites
    - Clique em "Configurar Problema"
 
-2. **Solução Passo a Passo**:
+2. **Solução Tabulada Passo a Passo**:
 
-   - Navegue para a aba "Solução Passo a Passo"
+   - Navegue para a aba "Solução Tabulada"
    - Use o botão "Próximo Passo" para avançar uma iteração de cada vez
    - Use o botão "Mostrar Solução Completa" para executar todas as iterações automaticamente
    - Use o botão "Reiniciar" para começar novamente com o mesmo problema
 
-3. **Visualização**:
-   - A tabela do simplex é exibida com formatação apropriada
-   - A linha e coluna do pivô são destacadas em amarelo
-   - O elemento pivô é destacado em laranja
-   - Quando a solução é encontrada, os valores finais são exibidos
+3. **Solução Analítica Passo a Passo**:
+
+   - Navegue para a aba "Solução Analítica"
+   - Clique em "Mostrar Solução Analítica Completa" para ver todos os passos do método analítico
+   - Cada etapa do processo é detalhada com as manipulações algébricas
+   - Use o botão "Reiniciar Solução Analítica" para começar novamente
+
+4. **Visualização**:
+   - Na solução tabulada: a tabela do simplex é exibida com formatação apropriada
+   - Na solução analítica: cada passo algébrico é mostrado em detalhes
+   - Os elementos importantes são destacados para facilitar o acompanhamento
 
 ## Estrutura do Projeto
 
-- **tabuladocore.py**: Implementação principal do algoritmo Simplex Tabulado
-- **tabuladofrontend.py**: Interface web usando Streamlit
+- **tabuladocore.py**: Implementação do algoritmo Simplex Tabulado
+- **analiticocore.py**: Implementação do algoritmo Simplex Analítico
+- **tabuladofrontend.py**: Interface web usando Streamlit para ambos os métodos
+- **tabulaterminal.py**: Implementação do algoritmo Simplex Tabulado em terminal com * nas fileiras/colunas pivo.
 - **README.md**: Documentação do projeto
 
 ## Exemplo Predefinido
@@ -123,8 +135,13 @@ Você pode inserir seus próprios problemas de programação linear através de 
 2. Todas as variáveis sejam não-negativas
 3. O problema seja de maximização
 
+## Diferença entre os Métodos
+
+- **Método Tabulado**: Usa tabelas para resolver o simplex, mostrando as operações de pivotamento
+- **Método Analítico**: Mostra o processo algébrico detalhado, com todas as substituições e manipulações
+
 ## Observações
 
-- O algoritmo usa o método Simplex em sua forma tabulada
+- O algoritmo usa o método Simplex em sua forma tabulada e analítica
 - Para problemas de minimização, você precisa multiplicar os coeficientes da função objetivo por -1
 - A implementação atual não lida com problemas degenerados ou com múltiplas soluções ótimas
