@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 from scipy.optimize import linprog
 import time
-from app import SimplexTabulado, exibir_problema_completo  # Importar classes do arquivo original
+from tabuladocore import SimplexTabulado, exibir_problema_completo  # Importar classes do arquivo original
 
 # Configuração da página Streamlit
 st.set_page_config(page_title="Simplex Tabulado - Método Passo a Passo", layout="wide")
